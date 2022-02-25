@@ -30,33 +30,20 @@ public class Main {
 
 
 
-
-
-
     /**
      * Receive data as input and then transfer to a integer 2d array and populates the array with data
-     * @param strTxt
+     * @param strTxt data input as string
      * @return intArray (2d array)
      */
     public int[][] populateTwoDimensionalArray(String strTxt){
 
         String[] strFirstArray= strTxt.split("\n");    //split the string where \n and create a array
-        String twoDimensionalArray[][] = new String[strFirstArray.length][];
+        String[][] twoDimensionalArray = new String[strFirstArray.length][];
 
         int r=0;
         for(String str : strFirstArray){
             twoDimensionalArray[r++] = str.split(" ");  // split the string array between every object and create a 2d string array
         }
-        /*
-        for(int i=0; i< twoDimensionalArray.length; i++){
-            for(int j=0; j< twoDimensionalArray[i].length; j++){
-                System.out.print(twoDimensionalArray[i][j]+" ");
-            }
-            System.out.println();
-        }
-         */
-
-
 
         int[][] intPopulatedArray = new int[twoDimensionalArray.length][twoDimensionalArray[0].length];
         for(int i=0; i< twoDimensionalArray.length; i++){
@@ -73,7 +60,7 @@ public class Main {
      * The array has 20 rows and 20 columns regarding data.
      * It starts from the first row to fourth row and every time compares first column of 4 rows and calculates the product of these elements and sets as current highest product. Then it goes to the next rows for instance [1..4] then [2..5] then [3..6]
      * Every time the product of these elements are calculated and compared to the current highest, if a new product is higher than the current highest then it becomes the new current highest product.
-     * @param intArray
+     * @param intArray data input as 2d array
      * @return highestPossibleProduct
      */
     public int findHighestPossibleProductFromSameRow(int[][] intArray) {
@@ -99,7 +86,7 @@ public class Main {
      * The array has 20 rows and 20 columns regarding data.
      * It starts from the first row and every time compares 4 columns and calculates the product of these elements and sets as current highest product. Then it goes to the next columns for instance [1..4] then [2..5] then [3..6]
      * Every time the product of these elements are calculated and compared to the current highest, if a new product is higher than the current highest then it becomes the new current highest product.
-     * @param intArray
+     * @param intArray data input as 2d array
      * @return highestPossibleProduct
      */
     public int findHighestPossibleProductFromSameColumn(int[][] intArray){
@@ -125,7 +112,7 @@ public class Main {
      * The array has 20 rows and 20 columns regarding data.
      * Diagonal is means going from first row first column to second row second column and third row third column and so on.
      * Every time the product of these elements are calculated and compared to the current highest, if a new product is higher than the current highest then it becomes the new current highest product.
-     * @param intArray
+     * @param intArray data input as 2d array
      * @return highestPossibleProduct
      */
     public int findHighestPossibleFromDiagonal(int[][] intArray){
@@ -151,7 +138,7 @@ public class Main {
      * The array has 20 rows and 20 columns regarding data.
      * Anti diagonal is going from fourth row first column to third row second column to second row third column and so on.
      * Every time the product of these elements are calculated and compared to the current highest, if a new product is higher than the current highest then it becomes the new current highest product.
-     * @param intArray
+     * @param intArray data input as 2d array
      * @return highestPossibleProduct
      */
     public int findHighestPossibleFromAntiDiagonal(int[][] intArray){
@@ -173,37 +160,46 @@ public class Main {
     }
 
 
+    /**
+     * This method method calculates the highest possible product by calling other methods
+     * and comparing their products to find the highest possible.
+     * @return highestPossibleProduct
+     */
+    public int findHighestPossibleProduct(){
+        int[][] populatedArray = populateTwoDimensionalArray(txt);
 
-    public static void main(String[] args) {
-        Main main = new Main();
+        int highestPossibleProduct=0, result;
 
-        int[][] populatedArray = main.populateTwoDimensionalArray(main.txt);
-
-
-        int highestPossibleProduct=0, result=0;
-
-        result = main.findHighestPossibleProductFromSameRow(populatedArray);
+        result = findHighestPossibleProductFromSameRow(populatedArray);
         if(highestPossibleProduct < result)
             highestPossibleProduct = result;
 
 
-        result = main.findHighestPossibleProductFromSameColumn(populatedArray);
+        result = findHighestPossibleProductFromSameColumn(populatedArray);
         if(highestPossibleProduct < result)
             highestPossibleProduct = result;
 
 
-        result = main.findHighestPossibleFromDiagonal(populatedArray);
+        result = findHighestPossibleFromDiagonal(populatedArray);
         if(highestPossibleProduct < result)
             highestPossibleProduct = result;
 
 
-        result = main.findHighestPossibleFromAntiDiagonal(populatedArray);
+        result = findHighestPossibleFromAntiDiagonal(populatedArray);
         if(highestPossibleProduct < result)
             highestPossibleProduct = result;
-
-
 
         System.out.println("Highest possible product: "+highestPossibleProduct);
 
+        return highestPossibleProduct;
     }
+
+
+    /*   Before starting testing comment out the main method to achieve 100% method coverage
+    public static void main(String[] args) {
+        Main main = new Main();
+        main.findHighestPossibleProduct();
+    }
+     */
+
 }
